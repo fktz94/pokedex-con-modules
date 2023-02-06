@@ -1,5 +1,7 @@
-export const botonIrAtras = document.getElementById('ir-atras');
-export const botonIrAdelante = document.getElementById('ir-adelante');
+const botonIrPrincipio = document.getElementById('ir-principio');
+const botonIrAtras = document.getElementById('ir-atras');
+const botonIrAdelante = document.getElementById('ir-adelante');
+const botonIrFinal = document.getElementById('ir-final');
 
 function vaciarLista() {
   const pokemones = document.querySelectorAll('a');
@@ -30,14 +32,18 @@ export async function listarPokemones(listaDePokemones) {
 
 function habilitarYDeshabilitarBotones(previous, next) {
   if (previous === null) {
+    botonIrPrincipio.classList.add('disabled');
     botonIrAtras.classList.add('disabled');
   } else {
+    botonIrPrincipio.classList.remove('disabled');
     botonIrAtras.classList.remove('disabled');
   }
   if (next === null) {
     botonIrAdelante.classList.add('disabled');
+    botonIrFinal.classList.add('disabled');
   } else {
     botonIrAdelante.classList.remove('disabled');
+    botonIrFinal.classList.remove('disabled');
   }
 }
 export function asignarDireccionesALosBotones(previous, next) {
@@ -46,11 +52,17 @@ export function asignarDireccionesALosBotones(previous, next) {
   habilitarYDeshabilitarBotones(previous, next);
 }
 
-export function funcionalizarBotones(callback) {
+export function funcionalizarBotones(callback, LINK) {
+  botonIrPrincipio.addEventListener('click', () => {
+    callback(LINK);
+  });
   botonIrAtras.addEventListener('click', (e) => {
     callback(e.target.href);
   });
   botonIrAdelante.addEventListener('click', (e) => {
     callback(e.target.href);
+  });
+  botonIrFinal.addEventListener('click', () => {
+    callback(`${LINK}?limit=19&offset=1260`);
   });
 }

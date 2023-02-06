@@ -1,21 +1,14 @@
-import { llamarListaPokemones } from './llamar-api.js';
+import { LINK, llamarListaPokemones } from './llamar-api.js';
 import {
   asignarDireccionesALosBotones,
   listarPokemones,
   funcionalizarBotones,
 } from './ui.js';
 
-async function actualizar(url) {
+async function cargar(url) {
   const respuesta = await llamarListaPokemones(url);
   await listarPokemones(respuesta.results);
   asignarDireccionesALosBotones(respuesta.previous, respuesta.next);
-  funcionalizarBotones(actualizar);
+  funcionalizarBotones(cargar, LINK);
 }
-
-async function cargar() {
-  const respuesta = await llamarListaPokemones();
-  await listarPokemones(respuesta.results);
-  asignarDireccionesALosBotones(respuesta.previous, respuesta.next);
-  funcionalizarBotones(actualizar);
-}
-cargar();
+cargar(LINK);
