@@ -1,10 +1,13 @@
-const botonIrAtras = document.getElementById('ir-atras');
-const botonIrAdelante = document.getElementById('ir-adelante');
-// const botonIrPrincipio = document.getElementById('ir-principio');
-// const botonIrFinal = document.getElementById('ir-final');
-// const botonVolverAtras = document.getElementById('volver-atras');
+export const botonIrAtras = document.getElementById('ir-atras');
+export const botonIrAdelante = document.getElementById('ir-adelante');
+
+function vaciarLista() {
+  const pokemones = document.querySelectorAll('a');
+  if (pokemones.length > 0) pokemones.forEach((pokemon) => pokemon.remove());
+}
 
 export async function listarPokemones(listaDePokemones) {
+  vaciarLista();
   listaDePokemones.forEach((pokemon) => {
     const indice = pokemon.url.split('/')[6];
     const elemento = document.createElement('a');
@@ -25,28 +28,29 @@ export async function listarPokemones(listaDePokemones) {
   });
 }
 
-export function asignarDireccionesALosBotones(previous, next) {
+function habilitarYDeshabilitarBotones(previous, next) {
   if (previous === null) {
     botonIrAtras.classList.add('disabled');
   } else {
-    botonIrAtras.href = previous;
-    botonIrAtras.onclick();
-    if (botonIrAtras.classList.contains('disabled'))
-      botonIrAtras.classList.remove('disabled');
+    botonIrAtras.classList.remove('disabled');
   }
   if (next === null) {
     botonIrAdelante.classList.add('disabled');
   } else {
-    botonIrAdelante.href = next;
-    if (botonIrAdelante.classList.contains('disabled'))
-      botonIrAdelante.classList.remove('disabled');
+    botonIrAdelante.classList.remove('disabled');
   }
 }
+export function asignarDireccionesALosBotones(previous, next) {
+  if (!(previous === null)) botonIrAtras.href = previous;
+  if (!(next === null)) botonIrAdelante.href = next;
+  habilitarYDeshabilitarBotones(previous, next);
+}
 
-async function cambiarDePagina(pgAnterior, pgPosterior) {
-  if (pgAnterior === null) {
-    botonIrAtras.onclick(() => '');
-  } else {
-    botonIrAtras.onclick();
-  }
+export function funcionalizarBotones(callback) {
+  botonIrAtras.addEventListener('click', (e) => {
+    callback(e.target.href);
+  });
+  botonIrAdelante.addEventListener('click', (e) => {
+    callback(e.target.href);
+  });
 }
