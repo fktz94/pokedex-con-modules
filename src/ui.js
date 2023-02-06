@@ -1,8 +1,8 @@
 const botonIrAtras = document.getElementById('ir-atras');
 const botonIrAdelante = document.getElementById('ir-adelante');
-const botonIrPrincipio = document.getElementById('ir-principio');
-const botonIrFinal = document.getElementById('ir-final');
-const botonVolverAtras = document.getElementById('volver-atras');
+// const botonIrPrincipio = document.getElementById('ir-principio');
+// const botonIrFinal = document.getElementById('ir-final');
+// const botonVolverAtras = document.getElementById('volver-atras');
 
 export async function listarPokemones(listaDePokemones) {
   listaDePokemones.forEach((pokemon) => {
@@ -25,7 +25,7 @@ export async function listarPokemones(listaDePokemones) {
   });
 }
 
-export function asignarDireccionesALosBotones(previous, next, url) {
+export function asignarDireccionesALosBotones(previous, next) {
   if (previous === null) {
     botonIrAtras.classList.add('disabled');
   } else {
@@ -41,13 +41,12 @@ export function asignarDireccionesALosBotones(previous, next, url) {
     if (botonIrAdelante.classList.contains('disabled'))
       botonIrAdelante.classList.remove('disabled');
   }
-  botonVolverAtras.href = url;
 }
 
-export async function cambiarDePagina(pgAnterior, pgPosterior, callback) {
+async function cambiarDePagina(pgAnterior, pgPosterior) {
   if (pgAnterior === null) {
     botonIrAtras.onclick(() => '');
   } else {
-    botonIrAtras.onclick(callback);
+    botonIrAtras.onclick();
   }
 }

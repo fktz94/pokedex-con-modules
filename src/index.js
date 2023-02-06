@@ -9,8 +9,11 @@ async function cargar() {
   const respuesta = await llamarListaPokemones();
   await listarPokemones(respuesta.results);
   asignarDireccionesALosBotones(respuesta.previous, respuesta.next, LINK);
-  cambiarDePagina(respuesta.previous, respuesta.next, actualizar(url));
+  cambiarDePagina(respuesta.previous, respuesta.next);
 }
 cargar();
 
-async function actualizar(url) {}
+export default async function actualizar(url) {
+  const respuesta = await llamarListaPokemones(url);
+  await listarPokemones(respuesta.results);
+}
