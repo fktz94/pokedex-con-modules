@@ -7,8 +7,8 @@ import {
   asignarDireccionesALosBotones,
   listarPokemones,
   funcionalizarBotones,
-  getId,
   mostrarPokemon,
+  getIdPokemon,
 } from './ui.js';
 
 async function cargarPokemon(id) {
@@ -21,7 +21,7 @@ async function actualizar(url) {
   await listarPokemones(respuesta.results);
   asignarDireccionesALosBotones(respuesta.previous, respuesta.next);
   funcionalizarBotones(actualizar, LINK);
-  getId(cargarPokemon);
+  getIdPokemon(cargarPokemon);
 }
 
 actualizar(LINK);

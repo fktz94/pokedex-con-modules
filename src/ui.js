@@ -121,7 +121,7 @@ export function mostrarPokemon(respuesta) {
   botonVolverAtras.classList.remove('hidden');
 }
 
-export function getId(callback) {
+export function getIdPokemon(callback) {
   const pokemones = document.getElementById('grilla-de-pokemones').childNodes;
   pokemones.forEach((pokemon) => {
     pokemon.addEventListener('click', (e) => {
@@ -178,7 +178,7 @@ export function funcionalizarBotones(callback, LINK) {
     });
   }
 
-  // Por mas que el href sea undefined, sigue llamando a la Pag1.
+  // Por mas que el href de botonIrAdelante sea undefined (null), sigue llamando a la Pag1.
   // ( por los eventListeners en el stack?)
 
   if (botonIrAdelante.classList.contains('disabled')) {
