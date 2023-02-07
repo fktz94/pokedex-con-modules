@@ -47,22 +47,78 @@ function habilitarYDeshabilitarBotones(previous, next) {
   }
 }
 export function asignarDireccionesALosBotones(previous, next) {
-  if (!(previous === null)) botonIrAtras.href = previous;
-  if (!(next === null)) botonIrAdelante.href = next;
+  if (!(previous === null)) {
+    botonIrAtras.href = previous;
+  } else {
+    botonIrAtras.href = undefined;
+  }
+  if (!(next === null)) {
+    botonIrAdelante.href = next;
+  } else {
+    botonIrAdelante.href = undefined;
+  }
   habilitarYDeshabilitarBotones(previous, next);
 }
 
+// La siguiente función me genera un pilón de eventListeners, de manera acumulativa y exponencial
+
 export function funcionalizarBotones(callback, LINK) {
-  botonIrPrincipio.addEventListener('click', () => {
-    callback(LINK);
-  });
-  botonIrAtras.addEventListener('click', (e) => {
-    callback(e.target.href);
-  });
-  botonIrAdelante.addEventListener('click', (e) => {
-    callback(e.target.href);
-  });
-  botonIrFinal.addEventListener('click', () => {
-    callback(`${LINK}?limit=19&offset=1260`);
+  if (botonIrPrincipio.classList.contains('disabled')) {
+    botonIrPrincipio.addEventListener('click', () => '');
+  } else {
+    botonIrPrincipio.addEventListener('click', () => {
+      callback(LINK);
+    });
+  }
+
+  if (botonIrAtras.classList.contains('disabled')) {
+    botonIrAtras.addEventListener('click', () => '');
+  } else {
+    botonIrAtras.addEventListener('click', (e) => {
+      callback(e.target.href);
+    });
+  }
+
+  // Por mas que el href sea undefined, sigue llamando a la Pag1.
+  // ( por los eventListeners en el stack?)
+
+  if (botonIrAdelante.classList.contains('disabled')) {
+    botonIrAdelante.addEventListener('click', () => '');
+  } else {
+    botonIrAdelante.addEventListener('click', (e) => {
+      callback(e.target.href);
+    });
+  }
+
+  if (botonIrFinal.classList.contains('disabled')) {
+    botonIrFinal.addEventListener('click', () => '');
+  } else {
+    botonIrFinal.addEventListener('click', () => {
+      callback(`${LINK}?limit=19&offset=1260`);
+    });
+  }
+}
+
+// Pokemón por separado
+
+export function mostrarPokemon(respuesta) {
+  const nombrePokemon = document.getElementById('nombre-pokemon');
+  nombrePokemon.classList.remove('hidden');
+  nombrePokemon.textContent = respuesta.name.toUpperCase();
+
+  const imagenPokemon = document.getElementById('imagen-pokemon');
+  imagenPokemon.classList.remove('hidden');
+  imagenPokemon.src = `${respuesta.sprites.other.home.front_default}`;
+
+  //   document.getElementById('data-pokemon').removeClass('hidden');
+}
+
+export function getId(callback) {
+  const pokemones = document.getElementById('grilla-de-pokemones').childNodes;
+  pokemones.forEach((pokemon) => {
+    pokemon.addEventListener('click', (e) => {
+      const id = e.target.attributes.id.value;
+      callback(id);
+    });
   });
 }
