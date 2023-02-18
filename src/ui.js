@@ -163,7 +163,7 @@ function ocultarPokemon() {
 
 export function funcionalizarBotones(callback, LINK) {
   if (botonIrPrincipio.classList.contains('disabled')) {
-    botonIrPrincipio.addEventListener('click', () => '');
+    botonIrPrincipio.addEventListener('click', () => {});
   } else {
     botonIrPrincipio.addEventListener('click', () => {
       callback(LINK);
@@ -171,7 +171,7 @@ export function funcionalizarBotones(callback, LINK) {
   }
 
   if (botonIrAtras.classList.contains('disabled')) {
-    botonIrAtras.addEventListener('click', () => '');
+    botonIrAtras.addEventListener('click', () => {});
   } else {
     botonIrAtras.addEventListener('click', (e) => {
       callback(e.target.href);
@@ -182,7 +182,7 @@ export function funcionalizarBotones(callback, LINK) {
   // ( por los eventListeners en el stack?)
 
   if (botonIrAdelante.classList.contains('disabled')) {
-    botonIrAdelante.addEventListener('click', () => '');
+    botonIrAdelante.addEventListener('click', () => {});
   } else {
     botonIrAdelante.addEventListener('click', (e) => {
       callback(e.target.href);
@@ -190,7 +190,7 @@ export function funcionalizarBotones(callback, LINK) {
   }
 
   if (botonIrFinal.classList.contains('disabled')) {
-    botonIrFinal.addEventListener('click', () => '');
+    botonIrFinal.addEventListener('click', () => {});
   } else {
     botonIrFinal.addEventListener('click', () => {
       callback(`${LINK}?limit=19&offset=1260`);
