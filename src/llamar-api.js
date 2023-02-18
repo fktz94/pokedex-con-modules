@@ -5,6 +5,9 @@ export async function llamarListaPokemones(url = LINK) {
 }
 
 export async function llamarPokemonesIndividuales(id) {
+  if (id === undefined) {
+    throw new Error('Debe ingresar un id para llamar un pokemon');
+  }
   const url = `${LINK}/${id}`;
   return fetch(url).then((respuesta) => respuesta.json());
 }
