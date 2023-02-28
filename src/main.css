@@ -41,3 +41,7 @@
   cursor: pointer;
   color: rgb(138, 0, 0);
 }
+
+.pokemon:active {
+  background-color: rgba(0, 185, 175, 0.3);
+}

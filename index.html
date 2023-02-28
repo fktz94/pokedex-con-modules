@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <link rel="stylesheet" href="dist/output.css" /> -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="dist/output.css" />
     <link rel="stylesheet" href="src/main.css" />
 
     <title>PokeDex</title>
@@ -27,18 +27,25 @@
       id="cuerpo"
       class="h-max py-10 bg-gradient-to-tl from-cyan-600 to-cyan-300"
     >
-      <h2 class="px-20 py-14 text-4xl tracking-widest" id="h2">
-        Elije tu Pokemón:
-      </h2>
-      <div
-        class="grid grid-cols-4 w-4/5 m-auto py-10 gap-14 text-xl font-mono"
-        id="grilla-de-pokemones"
-      ></div>
+      <div class="relative" id="tablero-pokemones">
+        <h2 class="px-20 py-14 text-4xl tracking-widest" id="h2">
+          Hay <span id="cantidad-de-pokemones">...</span> pokemones, elije el
+          tuyo:
+        </h2>
+        <span
+          class="absolute left-1/2 -translate-x-1/2"
+          id="mensaje-cargando"
+        ></span>
+        <div
+          class="grid grid-cols-4 w-4/5 m-auto py-10 gap-14 text-xl font-mono"
+          id="grilla-de-pokemones"
+        ></div>
 
-      <h3
-        class="mt-10 mb-10 text-center text-6xl tracking-widest hidden text-orange-800"
-        id="nombre-pokemon"
-      ></h3>
+        <h3
+          class="mt-10 mb-10 text-center text-6xl tracking-widest hidden text-orange-800"
+          id="nombre-pokemon"
+        ></h3>
+      </div>
 
       <div class="hidden" id="data-pokemon">
         <div class="flex w-3/5 m-auto">
