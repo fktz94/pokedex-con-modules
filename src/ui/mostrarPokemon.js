@@ -1,12 +1,41 @@
-function ocultarGrillaPokemones() {
-  document.getElementById('h2').classList.add('hidden');
-  document.getElementById('grilla-de-pokemones').classList.add('hidden');
-  document.getElementById('flechas').classList.add('hidden');
+function mostrarMovimientos(movimientos) {
+  document.getElementById('data-pokemon').classList.add('hidden');
+  document.getElementById('volver-atras').classList.add('hidden');
+  document.getElementById('contenedor-movimientos').classList.remove('hidden');
+
+  const $salir = document.getElementById('salir');
+  $salir.onclick = () => {
+    document.getElementById('data-pokemon').classList.remove('hidden');
+    document.getElementById('volver-atras').classList.remove('hidden');
+    document.getElementById('contenedor-movimientos').classList.add('hidden');
+    document.getElementById('movimientos').innerHTML = '';
+  };
+
+  const $divMovimientos = document.getElementById('movimientos');
+
+  movimientos.forEach((item) => {
+    const $contenedor = document.createElement('div');
+    $contenedor.classList = 'my-2';
+    const { nombre, movimiento } = item;
+
+    const $nombre = document.createElement('span');
+    $nombre.textContent = `${nombre.toUpperCase()} : `;
+    $nombre.classList = 'font-black';
+    $contenedor.appendChild($nombre);
+
+    const $movimientos = document.createElement('span');
+    $movimientos.textContent = movimiento.join(', ');
+    $movimientos.classList = 'font-mono';
+    $contenedor.appendChild($movimientos);
+
+    $divMovimientos.appendChild($contenedor);
+  });
 }
 
 function mostrarHabilidadesPokemon(respuesta) {
-  respuesta.types.forEach((caract, i) => {
-    const tipo = caract.type.name;
+  const { tipos, peso, habilidades, altura, movimientos } = respuesta;
+
+  tipos.forEach((tipo, i) => {
     const tipoPokemon = document.getElementById('tipo-pokemon');
     const strong = document.createElement('strong');
     if (i === 0) {
@@ -18,12 +47,11 @@ function mostrarHabilidadesPokemon(respuesta) {
   });
 
   const pesoPokemon = document.getElementById('peso-pokemon');
-  const peso = document.createElement('strong');
-  peso.textContent = respuesta.weight;
-  pesoPokemon.append(peso);
+  const textoPeso = document.createElement('strong');
+  textoPeso.textContent = peso;
+  pesoPokemon.append(textoPeso);
 
-  respuesta.abilities.forEach((caract, i) => {
-    const habilidad = caract.ability.name;
+  habilidades.forEach((habilidad, i) => {
     const habilidadPokemon = document.getElementById('habilidad-pokemon');
     const strong = document.createElement('strong');
     if (i === 0) {
@@ -35,61 +63,60 @@ function mostrarHabilidadesPokemon(respuesta) {
   });
 
   const alturaPokemon = document.getElementById('altura-pokemon');
-  const altura = document.createElement('strong');
-  altura.textContent = respuesta.height;
-  alturaPokemon.append(altura);
-}
+  const textoAltura = document.createElement('strong');
+  textoAltura.textContent = altura;
+  alturaPokemon.append(textoAltura);
 
-export function mostrarPokemon(respuesta) {
-  ocultarGrillaPokemones();
-  const nombrePokemon = document.getElementById('nombre-pokemon');
-  nombrePokemon.classList.remove('hidden');
-  nombrePokemon.textContent = respuesta.name.toUpperCase();
-
-  const imagenPokemon = document.getElementById('imagen-pokemon');
-  imagenPokemon.classList.remove('hidden');
-  imagenPokemon.src = `${respuesta.sprites.other.home.front_default}`;
-
-  const dataPokemon = document.getElementById('data-pokemon');
-  dataPokemon.classList.remove('hidden');
-  mostrarHabilidadesPokemon(respuesta);
-  botonVolverAtras.classList.remove('hidden');
-}
-
-export function getIdPokemon(callback) {
-  const pokemones = document.getElementById('grilla-de-pokemones').childNodes;
-  pokemones.forEach((pokemon) => {
-    pokemon.addEventListener('click', (e) => {
-      const id = e.target.attributes.id.value;
-      callback(id);
-    });
-  });
+  const $verMovimientos = document.getElementById('ver-movimientos');
+  $verMovimientos.onclick = () => {
+    mostrarMovimientos(movimientos);
+  };
 }
 
 function eliminarHijos(array) {
   array.forEach((item) => item.remove());
 }
 
-function ocultarPokemon() {
-  document.getElementById('h2').classList.remove('hidden');
-  document.getElementById('grilla-de-pokemones').classList.remove('hidden');
+function ocultarPokemon(botonVolverAtras) {
+  document.getElementById('tablero-pokemones').classList.remove('hidden');
   document.getElementById('flechas').classList.remove('hidden');
-  document.getElementById('nombre-pokemon').classList.add('hidden');
-  document.getElementById('imagen-pokemon').classList.add('hidden');
   document.getElementById('data-pokemon').classList.add('hidden');
 
   const tipoPokemon = document.querySelectorAll('#tipo-pokemon strong');
   const habilidadPokemon = document.querySelectorAll(
     '#habilidad-pokemon strong',
   );
-  eliminarHijos(tipoPokemon);
-  eliminarHijos(habilidadPokemon);
-
   const pesoPokemon = document.querySelector('#peso-pokemon strong');
   const alturaPokemon = document.querySelector('#altura-pokemon strong');
 
+  eliminarHijos(tipoPokemon);
+  eliminarHijos(habilidadPokemon);
   pesoPokemon.remove();
   alturaPokemon.remove();
 
   botonVolverAtras.classList.add('hidden');
+}
+
+export default function mostrarPokemon(pokemon) {
+  document.getElementById('tablero-pokemones').classList.add('hidden');
+  document.getElementById('flechas').classList.add('hidden');
+
+  const { nombre, imagen } = pokemon;
+
+  const nombrePokemon = document.getElementById('nombre-pokemon');
+  nombrePokemon.classList.remove('hidden');
+  nombrePokemon.textContent = nombre.toUpperCase();
+
+  const imagenPokemon = document.getElementById('imagen-pokemon');
+  imagenPokemon.classList.remove('hidden');
+  imagenPokemon.src = imagen;
+
+  const dataPokemon = document.getElementById('data-pokemon');
+  dataPokemon.classList.remove('hidden');
+
+  const $botonVolverAtras = document.getElementById('volver-atras');
+  $botonVolverAtras.classList.remove('hidden');
+  $botonVolverAtras.onclick = () => ocultarPokemon($botonVolverAtras);
+
+  mostrarHabilidadesPokemon(pokemon);
 }

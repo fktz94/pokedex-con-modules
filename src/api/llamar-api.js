@@ -4,7 +4,10 @@ export async function llamarListaPokemones(url) {
   return (await fetch(url)).json();
 }
 
-// export async function llamarPokemonesIndividuales(id) {
-//   const url = `${LINK}/${id}`;
-//   return fetch(url).then((respuesta) => respuesta.json());
-// }
+export async function llamarPokemonesIndividuales(id) {
+  if (id === undefined) {
+    throw new Error('Debe ingresar un id para llamar un pokemon');
+  }
+  const url = `${LINK}/${id}`;
+  return (await fetch(url)).json();
+}

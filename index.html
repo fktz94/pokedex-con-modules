@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link rel="stylesheet" href="dist/output.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link rel="stylesheet" href="dist/output.css" /> -->
     <link rel="stylesheet" href="src/main.css" />
 
     <title>PokeDex</title>
@@ -40,14 +40,13 @@
           class="grid grid-cols-4 w-4/5 m-auto py-10 gap-14 text-xl font-mono"
           id="grilla-de-pokemones"
         ></div>
-
-        <h3
-          class="mt-10 mb-10 text-center text-6xl tracking-widest hidden text-orange-800"
-          id="nombre-pokemon"
-        ></h3>
       </div>
 
       <div class="hidden" id="data-pokemon">
+        <h3
+          class="mt-10 mb-10 text-center text-6xl tracking-widest text-orange-800"
+          id="nombre-pokemon"
+        ></h3>
         <div class="flex w-3/5 m-auto">
           <div class="flex flex-col m-auto w-1/2" id="col-izq">
             <h4 class="text-xl m-5" id="altura-pokemon">Altura:&nbsp;</h4>
@@ -60,14 +59,33 @@
             </h4>
           </div>
         </div>
+        <div
+          class="w-36 p-2 mx-auto mt-8 rounded-full shadow border text-center font-mono cursor-pointer hover:bg-red-200 active:bg-red-400 shadow-black active:border-red-900 bg-red-50"
+          id="ver-movimientos"
+        >
+          Ver movimientos
+        </div>
+        <img
+          src=""
+          class="text-center m-auto hidden h-72"
+          id="imagen-pokemon"
+        />
       </div>
-      <img src="" class="text-center m-auto hidden h-72" id="imagen-pokemon" />
-
       <div
         class="w-40 p-6 mx-auto mt-20 rounded-full shadow border text-center font-mono cursor-pointer hidden hover:bg-red-200 active:bg-red-400 shadow-black active:border-red-900 bg-red-50"
         id="volver-atras"
       >
         Volver atrás
+      </div>
+
+      <div class="hidden relative" id="contenedor-movimientos">
+        <div
+          class="w-40 px-4 py-2 mx-auto mt-20 rounded-full shadow border text-center font-mono cursor-pointer hover:bg-red-200 active:bg-red-400 shadow-black active:border-red-900 bg-red-50"
+          id="salir"
+        >
+          Salir
+        </div>
+        <div class="mx-16 mt-10" id="movimientos"></div>
       </div>
 
       <div class="text-center h-fit mt-10" id="flechas">

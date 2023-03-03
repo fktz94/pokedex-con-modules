@@ -1,8 +1,8 @@
 export default async function listarPokemones(
   listaDePokemones,
-  actualizaTextoCargando,
+  actualizaTextoCargando = () => {},
+  cargarPokemon = () => {},
 ) {
-  console.log(listaDePokemones);
   actualizaTextoCargando('');
   listaDePokemones.forEach((pokemon) => {
     const { name: nombre, url } = pokemon;
@@ -22,5 +22,10 @@ export default async function listarPokemones(
       indice < 10 ? `0${indice}` : indice
     }) ${nombre.toUpperCase()}`;
     document.getElementById('grilla-de-pokemones').appendChild(elemento);
+
+    elemento.onclick = (e) => {
+      const { target } = e;
+      cargarPokemon(target.id);
+    };
   });
 }

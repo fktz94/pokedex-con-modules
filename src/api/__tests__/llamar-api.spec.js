@@ -37,7 +37,7 @@ test('llamar a un pokemon c/parametro x default', () => {
       }),
   );
 
-  llamarListaPokemones();
+  llamarListaPokemones(LINK);
   expect(global.fetch).toHaveBeenCalledTimes(1);
 
   expect(global.fetch).toHaveBeenCalledWith(LINK);
