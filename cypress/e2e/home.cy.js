@@ -80,7 +80,29 @@ describe('home', () => {
     cy.get('#flechas').should('not.be.visible');
   });
 
-  it.only('clickea volver atras', () => {
+  it.only('ve los movimientos de charmander y vuelve atras', () => {
+    cy.intercept('https://pokeapi.co/api/v2/pokemon?offset=0&limit=20', {
+      fixture: 'pagina-inicial.json',
+    }).as('pagina inicial');
+    cy.intercept('https://pokeapi.co/api/v2/pokemon/charmander', {
+      fixture: 'charmander.json',
+    }).as('pagina charmander');
+
+    cy.get('#grilla-de-pokemones a').eq(3).click();
+    cy.get('#ver-movimientos').click();
+    cy.get('#salir').should('be.visible');
+    cy.get('#movimientos div span').should('have.length.greaterThan', 0);
+
+    cy.get('#salir').click();
+    cy.get('#salir').should('not.be.visible');
+    cy.get('#data-pokemon').should('be.visible');
+    cy.get('#volver-atras').should('be.visible');
+    cy.get('h2').should('not.be.visible');
+    cy.get('#grilla-de-pokemones').should('not.be.visible');
+    cy.get('#flechas').should('not.be.visible');
+  });
+
+  it('clickea volver atras', () => {
     cy.intercept('https://pokeapi.co/api/v2/pokemon?offset=0&limit=20', {
       fixture: 'pagina-inicial.json',
     }).as('pagina inicial');

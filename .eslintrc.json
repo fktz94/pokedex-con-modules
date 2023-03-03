@@ -9,10 +9,10 @@
     "airbnb-base",
     "prettier",
     "plugin:prettier/recommended",
-    "plugin:jest/style",
+    // "plugin:jest/style",
     "plugin:cypress/recommended"
   ],
-  "plugins": ["prettier", "jest", "cypress"],
+  "plugins": ["prettier", "cypress"], //"jest",
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest"
